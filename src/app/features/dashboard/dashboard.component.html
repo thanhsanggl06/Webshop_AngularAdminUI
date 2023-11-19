@@ -1,0 +1,38 @@
+<div class="container bg-light pt-3">
+  <app-revenue-chart class="p-5"></app-revenue-chart>
+  <app-recent-order></app-recent-order>
+  <ng-container *ngIf="bestSell">
+    <div class="mb-3 bg-primary-subtle p-4">
+      <h2>Top sản phẩm bán chạy</h2>
+      <div
+        class="d-flex"
+        style="
+          width: 50%;
+          height: 150px;
+          border: 1px solid #ccc;
+          background-color: aliceblue;
+          padding: 3px;
+          border-radius: 20px;
+          margin-bottom: 5px;
+        "
+        *ngFor="let item of bestSell"
+      >
+        <img
+          style="
+            width: 120px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 20px;
+          "
+          [src]="item.product.imageUrl"
+          alt=""
+        />
+        <div class="mx-2">
+          <h2>{{ item.product.title }}</h2>
+          <h3>Số lượng bán ra : {{ item.totalQuantity }}</h3>
+          <p>Đơn giá : {{ item.product.price }}</p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

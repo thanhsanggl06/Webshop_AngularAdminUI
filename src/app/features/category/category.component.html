@@ -1,0 +1,82 @@
+<div class="container d-flex bg-light pt-3">
+  <div class="sidebar">
+    <h1>Thêm loại sản phẩm</h1>
+    <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Tên Loại</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          [(ngModel)]="model.name"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Mô tả</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          name="description"
+          [(ngModel)]="model.description"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="url" class="form-label">Url</label>
+        <input
+          type="text"
+          class="form-control"
+          id="url"
+          name="url"
+          [(ngModel)]="model.url"
+        />
+      </div>
+      <div class="mb-3">
+        <ng-container *ngIf="model.imageUrl !== ''">
+          <label class="form-label" for="featuredImageUrl"
+            >Hình ảnh mô tả</label
+          >
+          <div>
+            <img [src]="model.imageUrl" height="100" class="my-2" />
+          </div>
+        </ng-container>
+        <label for="imageUrl" class="form-label"> Image Url</label>
+        <input
+          type="text"
+          class="form-control"
+          id="imageUrl"
+          name="imageUrl"
+          [(ngModel)]="model.imageUrl"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Thêm</button>
+    </form>
+  </div>
+
+  <div class="content">
+    <h1>Danh Sách Loại Sản Phẩm</h1>
+    <ng-container *ngIf="categories$ | async as categories">
+      <table class="table-bordered table mt-3">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">URL</th>
+            <th scope="col" class="w-25">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of categories">
+            <th scope="row">{{ item.id }}</th>
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.url }}</td>
+            <td><a class="btn btn-light" [routerLink]="">edit</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </div>
+</div>

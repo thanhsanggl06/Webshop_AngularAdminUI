@@ -1,0 +1,53 @@
+<div class="container bg-light pt-3 pb-3">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page">Đơn hàng mới</a>
+    </li>
+  </ul>
+
+  <ng-container *ngIf="recentOrder$ | async as recentOrder">
+    <div style="height: 500px; overflow: scroll">
+      <table class="table-bordered table">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Tên khách hàng</th>
+            <th scope="col">Địa chỉ giao hàng</th>
+            <th scope="col" style="width: 400px">Chi tiết đơn hàng</th>
+            <th scope="col">Ngày đặt</th>
+            <th scope="col">Tổng cộng</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col" style="width: 110px">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of recentOrder">
+            <th scope="row">{{ item.id }}</th>
+            <td>{{ item.customer.name }} - {{ item.customer.phoneNumber }}</td>
+            <td>{{ item.shippingAddress }}</td>
+            <td>
+              <ul>
+                <li *ngFor="let detail of item.orderDetails">
+                  Mã sản phẩm: {{ detail.product.id }} -
+                  {{ detail.product.title }} - Số lượng:
+                  {{ detail.quantity }}
+                </li>
+              </ul>
+            </td>
+            <td>
+              {{ item.orderDate[2] }}/{{ item.orderDate[1] }}/{{
+                item.orderDate[0]
+              }}
+              {{ item.orderDate[3] }}h{{ item.orderDate[4] }}
+            </td>
+            <td>{{ item.amount }}</td>
+            <td>{{ item.orderStatus }}</td>
+            <td>
+              <button class="btn btn-success" (click)="onAcceptOrder(item.id)">Xác nhận</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,57 @@
+<div class="container bg-light pt-3 pb-3">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a
+        class="nav-link active"
+        aria-current="page"
+        [routerLink]="['/productList']"
+        >Danh Sách Sản Phẩm</a
+      >
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/addproduct']">Thêm Sản Phẩm</a>
+    </li>
+  </ul>
+
+  <h1>Danh Sách Sản Phẩm</h1>
+  <ng-container *ngIf="productList$ | async as productList">
+    <table class="table-bordered table mt-3">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Category</th>
+          <th scope="col">Price</th>
+          <th scope="col">Image</th>
+          <th scope="col" style="width: 150px">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of productList">
+          <th scope="row">{{ item.id }}</th>
+          <td>{{ item.title }}</td>
+          <td>{{ item.description }}</td>
+          <td>{{ item.category.name }}</td>
+          <td>{{ item.price }}</td>
+          <td>
+            <div>
+              <img [src]="item.imageUrl" height="100" class="my-2" />
+            </div>
+          </td>
+          <td>
+            <a class="btn btn-light" [routerLink]="">Edit</a>
+            <a class="btn btn-light" [routerLink]="">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+  <mat-paginator
+    [length]="totalItems"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="pageEvent($event)"
+    [showFirstLastButtons]="true"
+  ></mat-paginator>
+</div>
